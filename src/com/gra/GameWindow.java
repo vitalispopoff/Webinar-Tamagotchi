@@ -33,9 +33,20 @@ class GameWindow extends JPanel {
 			buttonZabawa = new JButton(),
 			buttonSpanie = new JButton();
 
+		File
+			file = new File("grafika\\klawisz.jpg");
+
+		Object[][]
+			buttonParameters = {
+
+				{buttonJedzenie, new Rectangle(152, 290, 50, 25), "Jedzenie"},
+				{buttonZabawa, new Rectangle(205, 310, 50, 25), "Zabawa"},
+				{buttonSpanie, new Rectangle(258, 290, 50, 25), "Spanie"}
+		};
+
 		try {
 
-			buttonIcon = new ImageIcon(ImageIO.read(new File("grafika\\klawisz.jpg")));
+			buttonIcon = new ImageIcon(ImageIO.read(file));
 		}
 
 		catch (Exception e){
@@ -43,21 +54,27 @@ class GameWindow extends JPanel {
 			System.out.println("Błędny adres grafiki klawisza.");
 		}
 
-		constructButton(buttonJedzenie, new Rectangle(152, 290, 50, 25), buttonIcon, "Jedzenie");
-		constructButton(buttonZabawa, new Rectangle(205, 310, 50, 25), buttonIcon, "Zabawa");
-		constructButton(buttonSpanie, new Rectangle(258, 290, 50, 25), buttonIcon, "Spanie");
+		for(Object[] o : buttonParameters)
+			constructButton(o,  buttonIcon);
 	}
 
-	private void constructButton(JButton button, Rectangle location, ImageIcon ikonaKlawisza, String name){
+	private void constructButton(Object[] objectParameters, ImageIcon buttonIcon){
+
+		JButton
+			button = (JButton) objectParameters[0];
+
+		Rectangle
+			location = (Rectangle) objectParameters[1];
+
+		String
+			name = (String) objectParameters[2];
 
 		button.setName(name);
-
 		button.setBounds(location);
 		button.setBorderPainted(false);
-		button.setIcon(ikonaKlawisza);
+		button.setIcon(buttonIcon);
 
-		button.addActionListener( e -> constructAction(name));
-
+		button.addActionListener(e -> constructAction(name));
 		add(button);
 	}
 
@@ -80,7 +97,7 @@ class GameWindow extends JPanel {
 
 		super.paintComponent(g);
 
-		BufferedImage obrazek;
+		BufferedImage image;
 
 		try {
 
@@ -90,8 +107,8 @@ class GameWindow extends JPanel {
 			File
 				file = new File(adres);
 
-			obrazek = ImageIO.read(file);
-			g.drawImage(obrazek, 0, 0, this);
+			image = ImageIO.read(file);
+			g.drawImage(image, 0, 0, this);
 		}
 
 		catch (Exception e){
