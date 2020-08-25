@@ -1,3 +1,5 @@
+//	@formatter:off
+
 package com.gra;
 
 import javax.swing.*;
@@ -5,116 +7,113 @@ import java.util.Random;
 
 public class Tamagotchi extends JFrame {
 
-	int
+	static Tamagotchi
+		tamagotchi;
+
+	static int
 		lvl_Jedzenie = 5,
 		lvl_Zabawa = 5,
 		lvl_Spanie = 5;
 
+	Thread
+		gameLogic;
+
 //	--------------------------------------------------------------------------------------------------------------------
 
-	public Tamagotchi(String nazwa) {
+	public Tamagotchi() {
 
-		super(nazwa);
+		tamagotchi = this;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
 		GameWindow
-			okno = new GameWindow(this);
+			window = new GameWindow();
 
-		add(okno);
+		add(window);
 		pack();
 
-		Thread
-			logikaGry = new Thread(
-
-				() -> {
-
-					boolean
-						gameIsOver = false;
-
-					while(!gameIsOver) {
-
-						try {
-
-							Thread.sleep(2000);
-
-							int
-								whatChanges = new Random().nextInt(3) + 1;
-
-							Changes.values()[whatChanges].changeStatus(this);
-
-							reportStatus();
-
-							if (getMinLevel() > 0)
-								repaint();
-
-							else
-								gameIsOver = true;
-						}
-
-						catch (Exception e) {
-
-							System.out.println("Błędny czas dostępu do wątku.");
-						}
-					}
-
-				JOptionPane.showMessageDialog(null, "Haha! Przegrałeś.");
-			}
-		);
-
-		logikaGry.start();
+		setGameLogic();
+		gameLogic.start();
 	}
 
 //	--------------------------------------------------------------------------------------------------------------------
 
-	public int getLvl(String level){
+	private void setGameLogic(){
 
-		if(level.equals("Jedzenie")) return lvl_Jedzenie;
-		if(level.equals("Zabawa")) return lvl_Zabawa;
-		if(level.equals("Spanie")) return lvl_Spanie;
+		this.gameLogic = new Thread( () -> {
 
-		return 0;
+			boolean
+				gameIsOver = false;
+
+			Random
+				random = new Random();
+
+			int
+				timeRandomizer = 5000;
+
+			while(!gameIsOver) {
+
+				try {
+
+					int
+						time = random.nextInt(timeRandomizer) + 1000,
+						index = new Random().nextInt(3);
+
+					ButtonContext
+						context = ButtonContext.values()[index];
+
+					context.decreaseLevel();
+					refresh();
+					reportStatus();
+
+					if (getMinLevel() == 0)
+
+						gameIsOver = true;
+
+					Thread.sleep(time);
+					timeRandomizer -= 100;
+				}
+
+				catch (Exception e) {
+
+					System.out.println("Błędny czas dostępu do wątku.");
+				}
+			}
+
+			JOptionPane.showMessageDialog(null, "Haha! Przegrałeś.");
+		});
+
 	}
 
-	public void increaseLvl(String level){
+	public void refresh(){
 
-		if(level.equals("Jedzenie"))
-
-			lvl_Jedzenie++;
-
-		if(level.equals("Zabawa"))
-
-			lvl_Zabawa++;
-
-		if(level.equals("Spanie"))
-
-			lvl_Spanie++;
+		repaint();
 	}
 
-	public int getMinLevel(){
+	public static int getMinLevel(){
 
 		return Math.min(lvl_Jedzenie, Math.min(lvl_Zabawa, lvl_Spanie));
 	}
 
-
-
 	public void reportStatus() {
 
 		System.out.println(
-				"-----------------------------\n"
-						+ "Jedzenie : " + lvl_Jedzenie + "\n"
-						+ "Zabawa : " + lvl_Zabawa + "\n"
-						+ "Spanie : " + lvl_Spanie + "\n"
+			"-----------------------------\n"
+			+ "Jedzenie : " + lvl_Jedzenie + "\n"
+			+ "Zabawa : " + lvl_Zabawa + "\n"
+			+ "Spanie : " + lvl_Spanie + "\n"
 		);
 	}
 
-	//	--------------------------------------------------------------------------------------------------------------------
+//	--------------------------------------------------------------------------------------------------------------------
 
 	public static void main(String[] args) {
 
-		Tamagotchi tamagotchi = new Tamagotchi("Tamagotchi");
+		Tamagotchi tamagotchi = new Tamagotchi();
 
 		tamagotchi.reportStatus();
 	}
 }
+
+//	@formatter:on
