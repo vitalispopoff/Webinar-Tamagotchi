@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class Button extends JButton {
+public class Buttons extends JButton {
 
 	static File
 			file = new File("grafika\\klawisz.jpg");
@@ -15,7 +15,7 @@ public class Button extends JButton {
 
 //	--------------------------------------------------------------------------------------------------------------------
 
-	public Button(ButtonContext buttonContext){
+	public Buttons(ButtonContext buttonContext){
 
 		Object[]
 			parameters = buttonContext.getButtonParameters();

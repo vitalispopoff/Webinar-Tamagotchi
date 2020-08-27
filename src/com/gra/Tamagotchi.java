@@ -72,7 +72,7 @@ public class Tamagotchi extends JFrame {
 						gameIsOver = true;
 
 					Thread.sleep(time);
-					timeRandomizer -= 100;
+					timeRandomizer -= 50;
 				}
 
 				catch (Exception e) {
@@ -100,9 +100,9 @@ public class Tamagotchi extends JFrame {
 
 		System.out.println(
 			"-----------------------------\n"
-			+ "Jedzenie : " + lvl_Jedzenie + "\n"
-			+ "Zabawa : " + lvl_Zabawa + "\n"
-			+ "Spanie : " + lvl_Spanie + "\n"
+			+ "\tJedzenie : " + lvl_Jedzenie + "\n"
+			+ "\tZabawa : " + lvl_Zabawa + "\n"
+			+ "\tSpanie : " + lvl_Spanie + "\n"
 		);
 	}
 

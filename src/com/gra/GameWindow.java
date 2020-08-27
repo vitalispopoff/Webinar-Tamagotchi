@@ -18,14 +18,14 @@ class GameWindow extends JPanel {
 
 	public void addButtons(){
 
-		Button
-			buttonJedzenie = new Button(ButtonContext.JEDZENIE),
-			buttonZabawa = new Button(ButtonContext.ZABAWA),
-			buttonSpanie = new Button(ButtonContext.SPANIE);
+		Buttons
+			buttonsJedzenie = new Buttons(ButtonContext.JEDZENIE),
+			buttonsZabawa = new Buttons(ButtonContext.ZABAWA),
+			buttonsSpanie = new Buttons(ButtonContext.SPANIE);
 
-		add(buttonJedzenie);
-		add(buttonZabawa);
-		add(buttonSpanie);
+		add(buttonsJedzenie);
+		add(buttonsZabawa);
+		add(buttonsSpanie);
 	}
 
 	@Override
