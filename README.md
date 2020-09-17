@@ -5,4 +5,5 @@ A simple project based on the C_School open webinar given by Piotr Wrona on Augu
 The project aim is to refactor, and develop the game from an elementary single-class sketch written on-the-fly 
 by the lecturer, to a bit more sophisticated piece of code presenting more subtle mechanics at the business logic level.
 
-The main idea, and graphic design - as mentioned above - was provided by Piotr Wrona.  
+The main idea - as mentioned above - was provided by Piotr Wrona.
+The graphic design (probably) by Adam Milczarczyk.
